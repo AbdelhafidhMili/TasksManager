@@ -21,7 +21,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-
+    int ConnectionId;
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
