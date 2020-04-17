@@ -13,7 +13,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 
     db = QSqlDatabase::addDatabase("QSQLITE"); //add db with SQLite driver
-    db.setDatabaseName("/home/mili/Projects/Projet App Qt For Project Tasks/DataBase/TasksManagerDataBas"); // path of db
+    db.setDatabaseName("/home/mili/Projects/Projet App Qt For Project Tasks/Taskmanager/DataBase/TasksManagerDataBase"); // path of db
 
 
 }
@@ -28,21 +28,26 @@ MainWindow::~MainWindow()
 void MainWindow::on_pushButton_clicked( )
 {
 QString s =   ui->lineEditUser->text(); //capter le ID
-QString q="SELECT FirstName FROM Collab"; // query to getuser name
+QString q="SELECT FirstName FROM Collab"; // text of query to getuser name
 user1.userId=s.toUInt(); //transformer le ID en Integer
-if (db.open()){                 // vérifier la database
+
+    if (db.open()){                 // vérifier la database
         //ui->lineEdit_2->setText("database connected");
         //query.prepare();
+        QSqlQuery query1;
 
-        if (!query.exec("SELECT * FROM collab")){
+        if (!query1.exec("SELECT * FROM Collab")){
             ui->lineEdit_2->setText("query not executed");
-            ui->lineEditUser->setText(query.lastError().text());
+            ui->lineEditUser->setText(query1.lastError().text());
         } else {
-            QString Sfn = query.value(1).toString();
-            ui->lineEdit_2->setText(Sfn);
+            //QString Sfn = query1.value(1).toString();
+            ui->lineEdit_2->setText(s);
             //user1.Status=true;
             }
-}
+    }else{
+        ui->lineEdit_2->setText("can not open DB : folder not exist");
+    }
+
 }
 
 
